@@ -3,17 +3,42 @@ package game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+
 class Game {
 	public static void main(String[] args) throws InterruptedException, IOException {
+		boolean wantsToPlay = true;
+		do {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			runGame();
+			System.out.println("Do you want to play again? Y/N");
+			String answer = reader.readLine();
+			if (answer.equals("Y")) {
+				wantsToPlay = true;
+			}
+			else {
+				wantsToPlay = false;
+			}
+		}
+		while (wantsToPlay);
+	}
+
+	static void printAttributes (game.GameCharacter gameCharacter) {
+		System.out.println("Strength = " + gameCharacter.getStrength());
+		System.out.println("HitPoints = " + gameCharacter.getHitpoints());
+		System.out.println("Armor = " + gameCharacter.getArmor());
+		System.out.println("Level = " + gameCharacter.getLevel());
+		System.out.println("Name = " + gameCharacter.getName(false));
+		System.out.println("Alive = " + gameCharacter.alive());
+	}
+
+	static void runGame() throws IOException {
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(System.in));
-        GameCharacter player = new GameCharacter();
-        player.nameProperNoun = true;
-		GameCharacter enemy = new GameCharacter();
+		game.GameCharacter player = new game.GameCharacter();
+		player.nameProperNoun = true;
+		game.GameCharacter enemy = new game.GameCharacter();
 		enemy.nameProperNoun = false;
 		System.out.println("What is your name?");
-        // player.name = reader.readLine();
 		player.setName(reader.readLine());
 		System.out.println("These are your attributes");
 		printAttributes(player);
@@ -23,7 +48,7 @@ class Game {
 		printAttributes(enemy);
 		System.out.println("Press enter to continue.");
 		reader.readLine();
-		CombatRunner fighting = new CombatRunner(player, enemy);
+		game.CombatRunner fighting = new game.CombatRunner(player, enemy);
 		fighting.fightLoop();
 		System.out.println("After the fight, your attributes are:");
 		printAttributes(player);
@@ -33,17 +58,8 @@ class Game {
 		printAttributes(enemy);
 		if (player.alive()) {
 			System.out.println("You won the battle");
-		}
-		else {
+		} else {
 			System.out.println(enemy.getName(true) + " won the battle");
 		}
-	}
-	static void printAttributes (GameCharacter gameCharacter) {
-        System.out.println("Strength = " + gameCharacter.getStrength());
-        System.out.println("HitPoints = " + gameCharacter.getHitpoints());
-		System.out.println("Armor = " + gameCharacter.getArmor());
-        System.out.println("Level = " + gameCharacter.getLevel());
-        System.out.println("Name = " + gameCharacter.getName(false));
-        System.out.println("Alive = " + gameCharacter.alive());
 	}
 }
