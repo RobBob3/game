@@ -28,7 +28,7 @@ class CombatRunner {
         try {
             yesOrNo = reader.readLine();
             if (yesOrNo.equals("Y")) {
-                int amountHealed = doHeal(playerChar);
+                int amountHealed = playerChar.doHeal(5);
                 System.out.println("You were healed for " + amountHealed + " hitpoints");
                 pause(1500);
             }
@@ -49,11 +49,6 @@ class CombatRunner {
         while ((playerChar.alive()) && (enemyChar.alive())) {
             doRound();
         }
-    }
-    int doHeal(GameCharacter gameCharacter) {
-        int amountHealed = 5;
-        gameCharacter.setHitpoints(gameCharacter.getHitpoints() + amountHealed);
-        return amountHealed;
     }
     void printHittingAndWait(GameCharacter attacker, GameCharacter defender, int attackerDamage) {
         System.out.println(attacker.getName(true) + " hit " + defender.getName(true) + " for " + attackerDamage);

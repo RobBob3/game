@@ -24,12 +24,7 @@ class GameCharacter {
 	private int armor;
 	private String name;
 	boolean nameProperNoun = true;
-
-	int increaseStrength(int strAmountIncrease) {
-		strength = strength + strAmountIncrease;
-		return strength;
-	}
-
+	
 	int getHurt(int damageTaken) {
 		hitpoints = hitpoints - damageTaken;
 		return hitpoints;
@@ -53,6 +48,10 @@ class GameCharacter {
 				return name;
 			}
 		}
+	}
+	public int doHeal(int amountHealed) {
+		this.setHitpoints(this.getHitpoints() + amountHealed);
+		return amountHealed;
 	}
 	public void setName(String name) {
 		this.name = name;
