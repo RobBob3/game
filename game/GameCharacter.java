@@ -2,25 +2,27 @@ package game;
 
 import java.util.concurrent.ThreadLocalRandom;
 class GameCharacter {
-	private static final int MIN_STRENGTH = 6;
-	private static final int MAX_STRENGTH = 10;
-	private static final int MIN_HITPOINTS = 10;
-	private static final int MAX_HITPOINTS = 15;
-	private static final int MIN_ARMOR = 3;
-	private static final int MAX_ARMOR = 5;
+	private static final int MIN_STRENGTH_RANGE = 6;
+	private static final int MAX_STRENGTH_RANGE = 10;
+	private static final int MIN_HITPOINTS_RANGE = 10;
+	private static final int MAX_HITPOINTS_RANGE = 15;
+	private static final int MIN_ARMOR_RANGE = 3;
+	private static final int MAX_ARMOR_RANGE = 5;
 	private static final String[] MONSTERS = {"Goblin", "Zombie", "Orc"};
 
 	GameCharacter() {
 		level = 1;
-		strength = ThreadLocalRandom.current().nextInt(MIN_STRENGTH, MAX_STRENGTH + 1); // Need to add 1 for chance to return MAX_STRENGTH
-		hitpoints = ThreadLocalRandom.current().nextInt(MIN_HITPOINTS, MAX_HITPOINTS + 1); // Need to add 1 for chance to return MAX_HITPOINTS
-		armor = ThreadLocalRandom.current().nextInt(MIN_ARMOR, MAX_ARMOR + 1); // Need to add 1 for chance to return MAX_ARMOR
+		strength = ThreadLocalRandom.current().nextInt(MIN_STRENGTH_RANGE, MAX_STRENGTH_RANGE + 1); // Need to add 1 for chance to return MAX_STRENGTH_RANGE
+		hitpoints = ThreadLocalRandom.current().nextInt(MIN_HITPOINTS_RANGE, MAX_HITPOINTS_RANGE + 1); // Need to add 1 for chance to return MAX_HITPOINTS_RANGE
+		maxHitpoints = hitpoints;
+		armor = ThreadLocalRandom.current().nextInt(MIN_ARMOR_RANGE, MAX_ARMOR_RANGE + 1); // Need to add 1 for chance to return MAX_ARMOR_RANGE
 		name = MONSTERS[ThreadLocalRandom.current().nextInt(0, 2 + 1)];
 	}
 
 	private int strength;
 	private int level;
 	private int hitpoints;
+	private int maxHitpoints;
 	private int armor;
 	private String name;
 	boolean nameProperNoun = true;
@@ -50,7 +52,12 @@ class GameCharacter {
 		}
 	}
 	public int doHeal(int amountHealed) {
+		int preHealHitpoints = hitpoints;
 		this.setHitpoints(this.getHitpoints() + amountHealed);
+		if (hitpoints > maxHitpoints) {
+			hitpoints = maxHitpoints;
+		}
+		amountHealed = hitpoints - preHealHitpoints;
 		return amountHealed;
 	}
 	public void setName(String name) {
