@@ -8,11 +8,8 @@ class Game {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean wantsToPlay = true;
 		do {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			runGame();
-			System.out.println("Do you want to play again? Y/N");
-			String answer = reader.readLine();
-			if (answer.equals("Y")) {
+			if (PromptHelper.askYesOrNo("Do you want to play again? Y/N")) {
 				wantsToPlay = true;
 			}
 			else {
