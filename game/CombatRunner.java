@@ -1,13 +1,9 @@
 package game;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.ThreadLocalRandom;
 class CombatRunner {
     GameCharacter playerChar;
     GameCharacter enemyChar;
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     CombatRunner(GameCharacter playerChar, GameCharacter enemyChar) {
         this.playerChar = playerChar;
         this.enemyChar = enemyChar;
@@ -23,21 +19,17 @@ class CombatRunner {
     }
     void doRound() {
         int attackerDamage;
-        String yesOrNo = "Y";
-        System.out.println("Do you want to heal? Y/N");
-        try {
-            yesOrNo = reader.readLine();
-            if (yesOrNo.equals("Y")) {
-                int amountHealed = doHeal(playerChar);
-                System.out.println("You were healed for " + amountHealed + " hitpoints");
-                pause(1500);
-            }
-            else {
-                attackerDamage = attack(playerChar, enemyChar);
-                printHittingAndWait(playerChar, enemyChar, attackerDamage);
-            }
+        PromptHelper.printDivider();
+        boolean answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
+        PromptHelper.printDivider();
+        if (answeredYes) {
+            int amountHealed = playerChar.doHeal(5);
+            System.out.println("You were healed for " + amountHealed + " hitpoints");
+            pause(1500);
         }
-        catch (IOException ignored) {
+        else {
+            attackerDamage = attack(playerChar, enemyChar);
+            printHittingAndWait(playerChar, enemyChar, attackerDamage);
         }
         if (enemyChar.alive()) {
             attackerDamage = attack(enemyChar, playerChar);
@@ -49,11 +41,6 @@ class CombatRunner {
         while ((playerChar.alive()) && (enemyChar.alive())) {
             doRound();
         }
-    }
-    int doHeal(GameCharacter gameCharacter) {
-        int amountHealed = 5;
-        gameCharacter.setHitpoints(gameCharacter.getHitpoints() + amountHealed);
-        return amountHealed;
     }
     void printHittingAndWait(GameCharacter attacker, GameCharacter defender, int attackerDamage) {
         System.out.println(attacker.getName(true) + " hit " + defender.getName(true) + " for " + attackerDamage);
