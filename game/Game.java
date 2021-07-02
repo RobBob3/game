@@ -20,6 +20,7 @@ class Game {
 	}
 
 	static void printAttributes (game.GameCharacter gameCharacter) {
+		PromptHelper.printDivider();
 		System.out.println("Strength = " + gameCharacter.getStrength());
 		System.out.println("HitPoints = " + gameCharacter.getHitpoints());
 		System.out.println("Armor = " + gameCharacter.getArmor());
@@ -29,34 +30,54 @@ class Game {
 	}
 
 	static void runGame() throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(System.in));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		game.GameCharacter player = new game.GameCharacter();
-		player.nameProperNoun = true;
-		game.GameCharacter enemy = new game.GameCharacter();
-		enemy.nameProperNoun = false;
+		int enemiesDefeated = 0;
+		PromptHelper.printDivider();
 		System.out.println("What is your name?");
 		player.setName(reader.readLine());
-		System.out.println("These are your attributes");
-		printAttributes(player);
-		System.out.println("Press enter to continue.");
-		reader.readLine();
-		System.out.println("These are " + enemy.getName(true) + "'s attributes");
-		printAttributes(enemy);
-		System.out.println("Press enter to continue.");
-		reader.readLine();
-		game.CombatRunner fighting = new game.CombatRunner(player, enemy);
-		fighting.fightLoop();
-		System.out.println("After the fight, your attributes are:");
-		printAttributes(player);
-		System.out.println("Press enter to continue.");
-		reader.readLine();
-		System.out.println("After the fight, " + enemy.getName(true) + "'s attributes are:");
-		printAttributes(enemy);
-		if (player.alive()) {
-			System.out.println("You won the battle");
-		} else {
-			System.out.println(enemy.getName(true) + " won the battle");
+		do {
+			player.nameProperNoun = true;
+			game.GameCharacter enemy = new game.GameCharacter();
+			enemy.nameProperNoun = false;
+			PromptHelper.printDivider();
+			System.out.println("These are your attributes");
+			printAttributes(player);
+			PromptHelper.printDivider();
+			System.out.println("Press enter to continue.");
+			reader.readLine();
+			PromptHelper.printDivider();
+			System.out.println("These are " + enemy.getName(true) + "'s attributes");
+			printAttributes(enemy);
+			PromptHelper.printDivider();
+			System.out.println("Press enter to continue.");
+			reader.readLine();
+			game.CombatRunner fighting = new game.CombatRunner(player, enemy);
+			fighting.fightLoop();
+			PromptHelper.printDivider();
+			System.out.println("After the fight, your attributes are:");
+			printAttributes(player);
+			PromptHelper.printDivider();
+			System.out.println("Press enter to continue.");
+			reader.readLine();
+			PromptHelper.printDivider();
+			System.out.println("After the fight, " + enemy.getName(true) + "'s attributes are:");
+			printAttributes(enemy);
+			if (player.alive()) {
+				enemiesDefeated++;
+				PromptHelper.printDivider();
+				System.out.println("You won the battle");
+				PromptHelper.printDivider();
+				System.out.println("You were healed for " + player.doHeal(5) + " hitpoints.");
+				PromptHelper.printDivider();
+			} else {
+				System.out.println(enemy.getName(true) + " won the battle!");
+				PromptHelper.printDivider();
+				System.out.println("You died to the " + enemy.getName(false) + "!");
+				PromptHelper.printDivider();
+				System.out.println("You defeated " + enemiesDefeated + " NRpenemies this game.");
+			}
 		}
+		while (player.alive());
 	}
 }

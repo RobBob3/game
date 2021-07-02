@@ -19,8 +19,10 @@ class CombatRunner {
     }
     void doRound() {
         int attackerDamage;
+        PromptHelper.printDivider();
         boolean answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
-        if (answeredYes == true) {
+        PromptHelper.printDivider();
+        if (answeredYes) {
             int amountHealed = playerChar.doHeal(5);
             System.out.println("You were healed for " + amountHealed + " hitpoints");
             pause(1500);

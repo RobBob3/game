@@ -30,4 +30,8 @@ public class PromptHelper {
         while(answeredQuestion == false);
         return answeredYes;
     }
+
+    public static void printDivider() {
+        System.out.println("================================");
+    }
 }
