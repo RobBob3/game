@@ -27,6 +27,7 @@ class Game {
 		System.out.println("Level = " + gameCharacter.getLevel());
 		System.out.println("Name = " + gameCharacter.getName(false));
 		System.out.println("Alive = " + gameCharacter.alive());
+		System.out.println("Experience = " + gameCharacter.getExperience());
 	}
 
 	static void runGame() throws IOException {
@@ -65,8 +66,12 @@ class Game {
 			printAttributes(enemy);
 			if (player.alive()) {
 				enemiesDefeated++;
+				int addedExperience = player.increaseExperience(enemy.getLevel());
+
 				PromptHelper.printDivider();
 				System.out.println("You won the battle");
+				PromptHelper.printDivider();
+				System.out.println("You gained " + addedExperience + " experience!");
 				PromptHelper.printDivider();
 				System.out.println("You were healed for " + player.doHeal(5) + " hitpoints.");
 				PromptHelper.printDivider();

@@ -8,6 +8,8 @@ class GameCharacter {
 	private static final int MAX_HITPOINTS_RANGE = 15;
 	private static final int MIN_ARMOR_RANGE = 3;
 	private static final int MAX_ARMOR_RANGE = 5;
+	private static final int MIN_EXPERIENCE_ADDED_RANGE = 5;
+	private static final int MAX_EXPERIENCE_ADDED_RANGE = 10;
 	private static final String[] MONSTERS = {"Goblin", "Zombie", "Orc"};
 
 	GameCharacter() {
@@ -17,8 +19,10 @@ class GameCharacter {
 		maxHitpoints = hitpoints;
 		armor = ThreadLocalRandom.current().nextInt(MIN_ARMOR_RANGE, MAX_ARMOR_RANGE + 1); // Need to add 1 for chance to return MAX_ARMOR_RANGE
 		name = MONSTERS[ThreadLocalRandom.current().nextInt(0, 2 + 1)];
+		experience = 0;
 	}
 
+	private int experience;
 	private int strength;
 	private int level;
 	private int hitpoints;
@@ -60,6 +64,25 @@ class GameCharacter {
 		amountHealed = hitpoints - preHealHitpoints;
 		return amountHealed;
 	}
+	public int increaseExperience(int enemyLevel) {
+		int experienceIncreased;
+		int randomExperienceIncrease = ThreadLocalRandom.current().nextInt(MIN_EXPERIENCE_ADDED_RANGE, MAX_EXPERIENCE_ADDED_RANGE + 1); // Need to add 1 for chance to return MAX_EXPERIENCE_ADDED_RANGE
+		experienceIncreased = randomExperienceIncrease * enemyLevel;
+		setExperience(getExperience() + experienceIncreased);
+		return experienceIncreased;
+		// Xp = level * random # between 5 and 10
+	}
+	public int gainLevelsIfCan() {
+		int levelBeforeLevelUp = level;
+		int requiredExperience = 15 * level;
+		int levelAfterLevelUp = level;
+		while (requiredExperience <= getExperience()) {
+			setExperience(experience - requiredExperience);
+			level++;
+			levelAfterLevelUp++;
+		}
+		return levelBeforeLevelUp - levelAfterLevelUp;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -86,5 +109,11 @@ class GameCharacter {
 	}
 	public void setArmor(int armor) {
 		this.armor = armor;
+	}
+	public int getExperience() {
+		return experience;
+	}
+	public void setExperience(int experience) {
+		this.experience = experience;
 	}
 }
