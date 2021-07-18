@@ -3,8 +3,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 public class PromptHelper {
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static boolean askYesOrNo(String questionAsked) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String questionAnswer;
         boolean answeredYes = true;
         boolean answeredQuestion = false;
@@ -34,4 +34,12 @@ public class PromptHelper {
     public static void printDivider() {
         System.out.println("================================");
     }
+    public static void promptForEnter() {
+        System.out.println("Press enter to continue.");
+        try {
+            reader.readLine();
+        } catch (IOException ignored) {
+        }
+    }
 }
+
