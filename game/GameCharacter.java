@@ -79,9 +79,12 @@ class GameCharacter {
 		while (requiredExperience <= getExperience()) {
 			setExperience(experience - requiredExperience);
 			level++;
+			this.setStrength(strength + level);
+			this.setMaxHitpoints(maxHitpoints + level);
+			this.setHitpoints(hitpoints + level);
 			levelAfterLevelUp++;
 		}
-		return levelBeforeLevelUp - levelAfterLevelUp;
+		return levelAfterLevelUp - levelBeforeLevelUp;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -103,6 +106,12 @@ class GameCharacter {
 	}
 	public void setHitpoints(int hitpoints) {
 		this.hitpoints = hitpoints;
+	}
+	public int getMaxHitpoints(){
+		return maxHitpoints;
+	}
+	public void setMaxHitpoints(int maxHitpoints){
+		this.maxHitpoints = maxHitpoints;
 	}
 	public int getArmor() {
 		return armor;

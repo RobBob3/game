@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 class Game {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	GameCharacter player = new game.GameCharacter();
+	GameCharacter player;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean wantsToPlay = true;
 		Game game = new Game();
@@ -34,6 +34,7 @@ class Game {
 	}
 
 	void runGame() throws IOException {
+		player = new GameCharacter();
 		int enemiesDefeated = 0;
 		PromptHelper.printDivider();
 		System.out.println("What is your name?");
@@ -44,12 +45,16 @@ class Game {
 			if (player.alive()) {
 				enemiesDefeated++;
 				int addedExperience = player.increaseExperience(enemy.getLevel());
-
+				int levelsGained = player.gainLevelsIfCan();
 				PromptHelper.printDivider();
 				System.out.println("You won the battle");
 				PromptHelper.printDivider();
 				System.out.println("You gained " + addedExperience + " experience!");
 				PromptHelper.printDivider();
+				if (levelsGained == 1) {
+					System.out.println("You gained 1 level.");
+				}
+				else System.out.println("You gained " + levelsGained + " levels.");
 				System.out.println("You were healed for " + player.doHeal(5) + " hitpoints.");
 				PromptHelper.printDivider();
 			} else {
