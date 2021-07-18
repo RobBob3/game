@@ -40,6 +40,7 @@ class Game {
 		player.setName(reader.readLine());
 		do {
 			GameCharacter enemy = doBeforeFightStuff();
+			doFight(enemy);
 			if (player.alive()) {
 				enemiesDefeated++;
 				int addedExperience = player.increaseExperience(enemy.getLevel());
