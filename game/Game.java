@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 class Game {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	GameCharacter player;
+	PlayerCharacter player;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean wantsToPlay = true;
 		Game game = new Game();
@@ -22,7 +22,7 @@ class Game {
 		while (wantsToPlay);
 	}
 
-	void printAttributes (game.GameCharacter gameCharacter) {
+	void printAttributes (GameCharacter gameCharacter) {
 		PromptHelper.printDivider();
 		System.out.println("Strength = " + gameCharacter.getStrength());
 		System.out.println("HitPoints = " + gameCharacter.getHitpoints());
@@ -30,11 +30,14 @@ class Game {
 		System.out.println("Level = " + gameCharacter.getLevel());
 		System.out.println("Name = " + gameCharacter.getName(false));
 		System.out.println("Alive = " + gameCharacter.alive());
-		System.out.println("Experience = " + gameCharacter.getExperience());
+		if (gameCharacter instanceof PlayerCharacter) {
+			PlayerCharacter player = (PlayerCharacter) gameCharacter;
+			System.out.println("Experience = " + player.getExperience());
+		}
 	}
 
 	void runGame() throws IOException {
-		player = new GameCharacter();
+		player = new PlayerCharacter();
 		int enemiesDefeated = 0;
 		PromptHelper.printDivider();
 		System.out.println("What is your name?");
@@ -69,7 +72,7 @@ class Game {
 	}
 	private GameCharacter doBeforeFightStuff() throws IOException {
 		player.nameProperNoun = true;
-		game.GameCharacter enemy = new game.GameCharacter();
+		GameCharacter enemy = new EnemyCharacter();
 		enemy.nameProperNoun = false;
 		PromptHelper.printDivider();
 		System.out.println("These are your attributes");
