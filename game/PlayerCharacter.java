@@ -16,8 +16,7 @@ public class PlayerCharacter extends GameCharacter {
         MIN_EXPERIENCE_ADDED_RANGE = 5;
         MAX_EXPERIENCE_ADDED_RANGE = 10;
         level = 1;
-        generateStats();
-
+        generateInitialStats();
     }
     public String getName(boolean putThe) {
         return name;

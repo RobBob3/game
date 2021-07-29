@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 class Game {
 	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	PlayerCharacter player;
+	int enemyLevel;
+	int enemiesDefeated;
 	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean wantsToPlay = true;
 		Game game = new Game();
@@ -38,7 +40,8 @@ class Game {
 
 	void runGame() throws IOException {
 		player = new PlayerCharacter();
-		int enemiesDefeated = 0;
+		enemiesDefeated = 0;
+		enemyLevel = 0; // enemyLevel set to 0 because it is required for increasing enemy levels in doBeforeFightStuff
 		PromptHelper.printDivider();
 		System.out.println("What is your name?");
 		player.setName(reader.readLine());
@@ -71,8 +74,11 @@ class Game {
 		while (player.alive());
 	}
 	private GameCharacter doBeforeFightStuff() throws IOException {
+		if (enemiesDefeated % 3 == 0) {
+			enemyLevel++;
+		}
 		player.nameProperNoun = true;
-		GameCharacter enemy = new EnemyCharacter();
+		GameCharacter enemy = new EnemyCharacter(enemyLevel);
 		enemy.nameProperNoun = false;
 		PromptHelper.printDivider();
 		System.out.println("These are your attributes");

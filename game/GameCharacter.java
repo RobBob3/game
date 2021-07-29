@@ -17,7 +17,7 @@ abstract class GameCharacter {
 	protected String name;
 	boolean nameProperNoun = true;
 
-	protected void generateStats() {
+	protected void generateInitialStats() {
 		strength = ThreadLocalRandom.current().nextInt(MIN_STRENGTH_RANGE, MAX_STRENGTH_RANGE + 1); // Need to add 1 for chance to return MAX_STRENGTH_RANGE
 		hitpoints = ThreadLocalRandom.current().nextInt(MIN_HITPOINTS_RANGE, MAX_HITPOINTS_RANGE + 1); // Need to add 1 for chance to return MAX_HITPOINTS_RANGE
 		maxHitpoints = hitpoints;
