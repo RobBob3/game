@@ -9,10 +9,10 @@ public class EnemyCharacter extends GameCharacter {
         MAX_HITPOINTS_RANGE = 15;
         MIN_ARMOR_RANGE = 3;
         MAX_ARMOR_RANGE = 5;
-        level = 0;
+        level = 1;
         generateInitialStats();
         name = MONSTERS[ThreadLocalRandom.current().nextInt(0, 2 + 1)];
-        while (enemyLevel > 0) {
+        while (enemyLevel > 1) {
             enemyLevel--;
             level++;
             strength = strength + level;
