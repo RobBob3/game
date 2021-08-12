@@ -7,8 +7,8 @@ public class PlayerCharacter extends GameCharacter {
     protected static int MAX_EXPERIENCE_ADDED_RANGE = 10;
     protected int experience = 0;
     public PlayerCharacter() {
-        MIN_STRENGTH_RANGE = 6;
-        MAX_STRENGTH_RANGE = 10;
+        MIN_STRENGTH_RANGE = 8;
+        MAX_STRENGTH_RANGE = 12;
         MIN_HITPOINTS_RANGE = 10;
         MAX_HITPOINTS_RANGE = 15;
         MIN_ARMOR_RANGE = 3;
