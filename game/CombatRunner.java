@@ -23,8 +23,14 @@ class CombatRunner {
         boolean answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
         PromptHelper.printDivider();
         if (answeredYes) {
-            int amountHealed = playerChar.doHeal(5);
-            System.out.println("You were healed for " + amountHealed + " hitpoints");
+            if (((PlayerCharacter)playerChar).getAmountOfHealingPotions() > 0) {
+                ((PlayerCharacter)playerChar).setAmountOfHealingPotions(((PlayerCharacter)playerChar).getAmountOfHealingPotions()-1);
+                int amountHealed = playerChar.doMaxHeal();
+                System.out.println("You were healed for " + amountHealed + " hitpoints");
+            }
+            else {
+                System.out.println("You have no healing potions to drink.");
+            }
             pause(1500);
         }
         else {

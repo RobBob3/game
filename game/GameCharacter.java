@@ -61,6 +61,9 @@ abstract class GameCharacter {
 		amountHealed = hitpoints - preHealHitpoints;
 		return amountHealed;
 	}
+	public int doMaxHeal() {
+		return (doHeal(maxHitpoints - hitpoints));
+	}
 
 	public void setName(String name) {
 		this.name = name;
