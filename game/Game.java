@@ -27,13 +27,14 @@ class Game {
 	void printAttributes (GameCharacter gameCharacter) {
 		PromptHelper.printDivider();
 		System.out.println("Strength = " + gameCharacter.getStrength());
-		System.out.println("HitPoints = " + gameCharacter.getHitpoints());
+		System.out.println("HitPoints = " + gameCharacter.getHitpoints() + "/" + gameCharacter.getMaxHitpoints());
 		System.out.println("Armor = " + gameCharacter.getArmor());
 		System.out.println("Level = " + gameCharacter.getLevel());
 		System.out.println("Name = " + gameCharacter.getName(false));
 		System.out.println("Alive = " + gameCharacter.alive());
 		if (gameCharacter instanceof PlayerCharacter) {
 			PlayerCharacter player = (PlayerCharacter) gameCharacter;
+			System.out.println("Healing potions = " + player.getAmountOfHealingPotions());
 			System.out.println("Experience = " + player.getExperience());
 		}
 	}
@@ -46,7 +47,7 @@ class Game {
 		System.out.println("What is your name?");
 		player.setName(reader.readLine());
 		do {
-			GameCharacter enemy = doBeforeFightStuff();
+			EnemyCharacter enemy = doBeforeFightStuff();
 			doFight(enemy);
 			if (player.alive()) {
 				enemiesDefeated++;
@@ -73,12 +74,12 @@ class Game {
 		}
 		while (player.alive());
 	}
-	private GameCharacter doBeforeFightStuff() throws IOException {
+	private EnemyCharacter doBeforeFightStuff() throws IOException {
 		if (enemiesDefeated % 3 == 0) {
 			enemyLevel++;
 		}
 		player.nameProperNoun = true;
-		GameCharacter enemy = new EnemyCharacter(enemyLevel);
+		EnemyCharacter enemy = new EnemyCharacter(enemyLevel);
 		enemy.nameProperNoun = false;
 		PromptHelper.printDivider();
 		System.out.println("These are your attributes");
@@ -92,7 +93,7 @@ class Game {
 		PromptHelper.promptForEnter();
 		return enemy;
 	}
-	private void doFight(GameCharacter enemy) {
+	private void doFight(EnemyCharacter enemy) {
 		game.CombatRunner fighting = new game.CombatRunner(player, enemy);
 		fighting.fightLoop();
 		PromptHelper.printDivider();

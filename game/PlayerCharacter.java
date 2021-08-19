@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PlayerCharacter extends GameCharacter {
     protected static int MIN_EXPERIENCE_ADDED_RANGE = 5;
     protected static int MAX_EXPERIENCE_ADDED_RANGE = 10;
+    protected static int amountOfHealingPotions = 3;
     protected int experience = 0;
     public PlayerCharacter() {
         MIN_STRENGTH_RANGE = 8;
@@ -16,6 +17,7 @@ public class PlayerCharacter extends GameCharacter {
         MIN_EXPERIENCE_ADDED_RANGE = 5;
         MAX_EXPERIENCE_ADDED_RANGE = 10;
         level = 1;
+
         generateInitialStats();
     }
     public String getName(boolean putThe) {
@@ -48,5 +50,11 @@ public class PlayerCharacter extends GameCharacter {
     }
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+    public int getAmountOfHealingPotions(){
+        return amountOfHealingPotions;
+    }
+    public void setAmountOfHealingPotions(int amountOfHealingPotions) {
+        this.amountOfHealingPotions = amountOfHealingPotions;
     }
 }
