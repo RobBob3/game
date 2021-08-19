@@ -2,9 +2,9 @@ package game;
 
 import java.util.concurrent.ThreadLocalRandom;
 class CombatRunner {
-    GameCharacter playerChar;
-    GameCharacter enemyChar;
-    CombatRunner(GameCharacter playerChar, GameCharacter enemyChar) {
+    PlayerCharacter playerChar;
+    EnemyCharacter enemyChar;
+    CombatRunner(PlayerCharacter playerChar, EnemyCharacter enemyChar) {
         this.playerChar = playerChar;
         this.enemyChar = enemyChar;
     }
@@ -20,20 +20,9 @@ class CombatRunner {
     void doRound() {
         int attackerDamage;
         PromptHelper.printDivider();
-        boolean answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
-        PromptHelper.printDivider();
-        if (answeredYes) {
-            if (((PlayerCharacter)playerChar).getAmountOfHealingPotions() > 0) {
-                ((PlayerCharacter)playerChar).setAmountOfHealingPotions(((PlayerCharacter)playerChar).getAmountOfHealingPotions()-1);
-                int amountHealed = playerChar.doMaxHeal();
-                System.out.println("You were healed for " + amountHealed + " hitpoints");
-            }
-            else {
-                System.out.println("You have no healing potions to drink.");
-            }
-            pause(1500);
-        }
-        else {
+
+        boolean playerHealed = doEntireHeal();
+        if (!playerHealed) {
             attackerDamage = attack(playerChar, enemyChar);
             printHittingAndWait(playerChar, enemyChar, attackerDamage);
         }
@@ -60,5 +49,24 @@ class CombatRunner {
         }
         catch(InterruptedException ignored) {
         }
+    }
+    private boolean doEntireHeal() {
+        int amountHealed = 0;
+        boolean answeredYes;
+        boolean playerHealed = false;
+        if (playerChar.getAmountOfHealingPotions() < 1) {
+            System.out.println("You have no healing potions left.");
+            return playerHealed;
+        }
+        answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
+        if (answeredYes == true) {
+            amountHealed = playerChar.doMaxHeal();
+            playerChar.setAmountOfHealingPotions(playerChar.getAmountOfHealingPotions() - 1);
+            playerHealed = true;
+            System.out.println("You healed for " + amountHealed + " hitpoints.");
+        }
+        PromptHelper.printDivider();
+        pause(1500);
+        return playerHealed;
     }
 }
