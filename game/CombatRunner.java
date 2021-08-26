@@ -39,16 +39,9 @@ class CombatRunner {
     }
     void printHittingAndWait(GameCharacter attacker, GameCharacter defender, int attackerDamage) {
         System.out.println(attacker.getName(true) + " hit " + defender.getName(true) + " for " + attackerDamage);
-        pause(1500);
+        PromptHelper.pause(1500);
         System.out.println(defender.getName(true) + " has " + defender.getHitpoints() + " hitpoints left.");
-        pause(1500);
-    }
-    void pause(int timePaused) {
-        try {
-            Thread.sleep(timePaused);
-        }
-        catch(InterruptedException ignored) {
-        }
+        PromptHelper.pause(1500);
     }
     private boolean doEntireHeal() {
         int amountHealed = 0;
@@ -66,7 +59,7 @@ class CombatRunner {
             System.out.println("You healed for " + amountHealed + " hitpoints.");
         }
         PromptHelper.printDivider();
-        pause(1500);
+        PromptHelper.pause(1500);
         return playerHealed;
     }
 }

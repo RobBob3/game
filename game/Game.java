@@ -36,6 +36,7 @@ class Game {
 			PlayerCharacter player = (PlayerCharacter) gameCharacter;
 			System.out.println("Healing potions = " + player.getAmountOfHealingPotions());
 			System.out.println("Experience = " + player.getExperience());
+			System.out.println("Gold = " + player.getGold());
 		}
 	}
 
@@ -53,10 +54,13 @@ class Game {
 				enemiesDefeated++;
 				int addedExperience = player.increaseExperience(enemy.getLevel());
 				int levelsGained = player.gainLevelsIfCan();
+				int addedGold = player.increaseGold(enemy.getLevel());
 				PromptHelper.printDivider();
 				System.out.println("You won the battle");
 				PromptHelper.printDivider();
 				System.out.println("You gained " + addedExperience + " experience!");
+				PromptHelper.printDivider();
+				System.out.println("You gained " + addedGold + " gold!");
 				PromptHelper.printDivider();
 				if (levelsGained == 1) {
 					System.out.println("You gained 1 level.");

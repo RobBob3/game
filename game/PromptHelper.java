@@ -41,5 +41,35 @@ public class PromptHelper {
         } catch (IOException ignored) {
         }
     }
+    public static void pause(int timePaused) {
+        try {
+            Thread.sleep(timePaused);
+        }
+        catch(InterruptedException ignored) {
+        }
+    }
+    public static int numberPrompt(int number) {
+        String numberEntered = null;
+        try {
+            numberEntered = reader.readLine();
+        } catch (IOException e) {
+        }
+        do {
+            try {
+                int numberEnteredAsANumber = Integer.parseInt(numberEntered);
+                if (numberEnteredAsANumber < number && number >= 0) {
+                    return numberEnteredAsANumber;
+                } else {
+                    System.out.println("That is not valid.");
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("That is not valid.");
+
+            }
+
+        }
+        while (true);
+    }
 }
 
