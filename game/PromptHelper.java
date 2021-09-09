@@ -34,6 +34,7 @@ public class PromptHelper {
     public static void printDivider() {
         System.out.println("================================");
     }
+
     public static void promptForEnter() {
         System.out.println("Press enter to continue.");
         try {
@@ -41,6 +42,7 @@ public class PromptHelper {
         } catch (IOException ignored) {
         }
     }
+
     public static void pause(int timePaused) {
         try {
             Thread.sleep(timePaused);
@@ -48,17 +50,19 @@ public class PromptHelper {
         catch(InterruptedException ignored) {
         }
     }
-    public static int numberPrompt(int number) {
-        String numberEntered = null;
+
+    public static int promptForChoice(int numberOfChoices, String questionAsked) {
+        String userInput = null;
         try {
-            numberEntered = reader.readLine();
+            System.out.println(questionAsked);
+            userInput = reader.readLine();
         } catch (IOException e) {
         }
         do {
             try {
-                int numberEnteredAsANumber = Integer.parseInt(numberEntered);
-                if (numberEnteredAsANumber < number && number >= 0) {
-                    return numberEnteredAsANumber;
+                int numberEntered = Integer.parseInt(userInput);
+                if (numberEntered < numberOfChoices && numberOfChoices >= 0) {
+                    return numberEntered;
                 } else {
                     System.out.println("That is not valid.");
                 }
