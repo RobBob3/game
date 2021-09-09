@@ -19,8 +19,8 @@ public class PlayerCharacter extends GameCharacter {
         MAX_ARMOR_RANGE = 5;
         MIN_EXPERIENCE_ADDED_RANGE = 5;
         MAX_EXPERIENCE_ADDED_RANGE = 10;
-        MAX_GOLD_ADDED_RANGE = 5;
-        MIN_GOLD_ADDED_RANGE = 10;
+        MIN_GOLD_ADDED_RANGE = 5;
+        MAX_GOLD_ADDED_RANGE = 10;
         level = 1;
 
         generateInitialStats();
