@@ -1,9 +1,9 @@
-package game;
+package game.test;
 
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 public class RandomTest {
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) {
         int amountForZero = 0;
         int amountForOne = 0;
         int amountForTwo = 0;
