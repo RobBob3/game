@@ -53,15 +53,12 @@ public class PromptHelper {
 
     public static int promptForChoice(int numberOfChoices, String questionAsked) {
         String userInput = null;
-        try {
-            System.out.println(questionAsked);
-            userInput = reader.readLine();
-        } catch (IOException e) {
-        }
         do {
             try {
+                System.out.println(questionAsked);
+                userInput = reader.readLine();
                 int numberEntered = Integer.parseInt(userInput);
-                if (numberEntered < numberOfChoices && numberOfChoices >= 0) {
+                if (numberEntered < numberOfChoices && numberEntered >= 0) {
                     return numberEntered;
                 } else {
                     System.out.println("That is not valid.");
@@ -69,9 +66,9 @@ public class PromptHelper {
             }
             catch (NumberFormatException e) {
                 System.out.println("That is not valid.");
-
             }
-
+            catch (IOException e) {
+            }
         }
         while (true);
     }
