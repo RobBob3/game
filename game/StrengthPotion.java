@@ -2,7 +2,7 @@ package game;
 
 import java.util.concurrent.ThreadLocalRandom;
 public class StrengthPotion extends Potion {
-    public int cost() {
+    public static int cost() {
         return 10;
     }
     public int drink(PlayerCharacter player) {

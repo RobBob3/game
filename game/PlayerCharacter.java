@@ -8,8 +8,10 @@ public class PlayerCharacter extends GameCharacter {
     protected static int MAX_GOLD_ADDED_RANGE;
     protected static int MIN_GOLD_ADDED_RANGE;
     protected int amountOfHealingPotions = 3;
+    protected int amountOfStrengthPotions = 0;
     protected int experience = 0;
     protected int gold = 0;
+    protected int timeInvulnerable;
     public PlayerCharacter() {
         MIN_STRENGTH_RANGE = 8;
         MAX_STRENGTH_RANGE = 12;
@@ -22,6 +24,7 @@ public class PlayerCharacter extends GameCharacter {
         MIN_GOLD_ADDED_RANGE = 5;
         MAX_GOLD_ADDED_RANGE = 10;
         level = 1;
+        timeInvulnerable = 0;
 
         generateInitialStats();
     }
@@ -58,6 +61,18 @@ public class PlayerCharacter extends GameCharacter {
         }
         return levelAfterLevelUp - levelBeforeLevelUp;
     }
+    public int addInvulnerabilityTime(int invulnerabilityTimeAdded) {
+        setTimeInvulnerable(getTimeInvulnerable() + invulnerabilityTimeAdded);
+        return timeInvulnerable;
+    }
+    public boolean isInvulnerable() {
+        return timeInvulnerable > 0;
+    }
+    public void countDownInvulnerability() {
+        if (isInvulnerable()) {
+            setTimeInvulnerable(getTimeInvulnerable() - 1);
+        }
+    }
     public int getExperience() {
         return experience;
     }
@@ -75,5 +90,17 @@ public class PlayerCharacter extends GameCharacter {
     }
     public void setAmountOfHealingPotions(int amountOfHealingPotions) {
         this.amountOfHealingPotions = amountOfHealingPotions;
+    }
+    public int getAmountOfStrengthPotions(){
+        return amountOfStrengthPotions;
+    }
+    public void setAmountOfStrengthPotions(int amountOfStrengthPotions) {
+        this.amountOfStrengthPotions = amountOfStrengthPotions;
+    }
+    public int getTimeInvulnerable() {
+        return timeInvulnerable;
+    }
+    public void setTimeInvulnerable(int timeInvulnerable) {
+        this.timeInvulnerable = timeInvulnerable;
     }
 }
