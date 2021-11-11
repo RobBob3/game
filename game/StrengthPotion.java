@@ -7,7 +7,7 @@ public class StrengthPotion extends Potion {
     }
     public int drink(PlayerCharacter player) {
         int strengthIncrease = ThreadLocalRandom.current().nextInt(1, 4);
-        player.setStrength(strengthIncrease);
+        player.setStrength(player.getStrength() + strengthIncrease);
         return strengthIncrease;
     }
 }

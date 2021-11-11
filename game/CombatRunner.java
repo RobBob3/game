@@ -11,24 +11,30 @@ class CombatRunner {
     int attack (GameCharacter attacker, GameCharacter defender) {
         int atkDieRoll = ThreadLocalRandom.current().nextInt(1,6 + 1);
         int attackerDamage = atkDieRoll + attacker.getStrength() - defender.getArmor();
-        if (attackerDamage < 0 ) {
+        if (attackerDamage < 0 || defender.isInvulnerable()) {
             attackerDamage = 0;
         }
         defender.getHurt(attackerDamage);
         return attackerDamage;
     }
+
     void doRound() {
         int attackerDamage;
         PromptHelper.printDivider();
-
-        boolean playerHealed = doEntireHeal();
-        if (!playerHealed) {
+        boolean potionDrank = handleHealingPotions() || handleInvulnerabilityPotions();
+        if (!potionDrank) {
             attackerDamage = attack(playerChar, enemyChar);
             printHittingAndWait(playerChar, enemyChar, attackerDamage);
         }
+
         if (enemyChar.alive()) {
             attackerDamage = attack(enemyChar, playerChar);
             printHittingAndWait(enemyChar, playerChar, attackerDamage);
+        }
+        playerChar.timerTickDown();
+        enemyChar.timerTickDown();
+        if (playerChar.getTurnsInvulnerable() > 0) {
+            System.out.println("Turns invulnerable = " + playerChar.getTurnsInvulnerable());
         }
     }
 
@@ -43,23 +49,36 @@ class CombatRunner {
         System.out.println(defender.getName(true) + " has " + defender.getHitpoints() + " hitpoints left.");
         PromptHelper.pause(1500);
     }
-    private boolean doEntireHeal() {
+
+    private boolean handleHealingPotions() {
         int amountHealed = 0;
         boolean answeredYes;
         boolean playerHealed = false;
-        if (playerChar.getAmountOfHealingPotions() < 1) {
-            System.out.println("You have no healing potions left.");
-            return playerHealed;
-        }
-        answeredYes = PromptHelper.askYesOrNo("Do you want to heal? Y/N");
-        if (answeredYes == true) {
-            amountHealed = playerChar.doMaxHeal();
-            playerChar.setAmountOfHealingPotions(playerChar.getAmountOfHealingPotions() - 1);
-            playerHealed = true;
-            System.out.println("You healed for " + amountHealed + " hitpoints.");
+        
+        if (playerChar.getAmountOfHealingPotions() >= 1) {
+            answeredYes = PromptHelper.askYesOrNo("Do you want to drink a healing potion? Y/N");
+            if (answeredYes) {
+                new HealingPotion().drink(playerChar);
+                playerHealed = true;
+                System.out.println("You healed for " + amountHealed + " hitpoints.");
+            }
         }
         PromptHelper.printDivider();
-        PromptHelper.pause(1500);
+        PromptHelper.pause(500);
         return playerHealed;
+    }
+
+    private boolean handleInvulnerabilityPotions() {
+        boolean answeredYes = false;
+        boolean drankPotion = false;
+        if (playerChar.getAmountOfInvulnerabilityPotions() >= 1)
+        answeredYes = PromptHelper.askYesOrNo("Do you want to drink an invulnerability potion? Y/N");
+        if (answeredYes) {
+            drankPotion = true;
+            new InvulnerabilityPotion().drink(playerChar);
+        }
+        PromptHelper.printDivider();
+        PromptHelper.pause(500);
+        return drankPotion;
     }
 }

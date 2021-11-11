@@ -8,8 +8,9 @@ public class PlayerCharacter extends GameCharacter {
     protected static int MAX_GOLD_ADDED_RANGE;
     protected static int MIN_GOLD_ADDED_RANGE;
     protected int amountOfHealingPotions = 3;
+    protected int amountOfInvulnerabilityPotions = 0;
     protected int experience = 0;
-    protected int gold = 0;
+    protected int gold = 10;
     public PlayerCharacter() {
         MIN_STRENGTH_RANGE = 8;
         MAX_STRENGTH_RANGE = 12;
@@ -22,6 +23,7 @@ public class PlayerCharacter extends GameCharacter {
         MIN_GOLD_ADDED_RANGE = 5;
         MAX_GOLD_ADDED_RANGE = 10;
         level = 1;
+        turnsInvulnerable = 0;
 
         generateInitialStats();
     }
@@ -75,5 +77,17 @@ public class PlayerCharacter extends GameCharacter {
     }
     public void setAmountOfHealingPotions(int amountOfHealingPotions) {
         this.amountOfHealingPotions = amountOfHealingPotions;
+    }
+        public int getAmountOfInvulnerabilityPotions() {
+            return amountOfInvulnerabilityPotions;
+        }
+        public void setAmountOfInvulnerabilityPotions(int amountOfInvulnerabilityPotions) {
+            this.amountOfInvulnerabilityPotions = amountOfInvulnerabilityPotions;
+    }
+    public int getTurnsInvulnerable() {
+        return turnsInvulnerable;
+    }
+    public void setTurnsInvulnerable() {
+        this.turnsInvulnerable = turnsInvulnerable;
     }
 }

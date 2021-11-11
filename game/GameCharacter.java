@@ -16,6 +16,7 @@ abstract class GameCharacter {
 	protected int armor;
 	protected String name;
 	boolean nameProperNoun = true;
+	int turnsInvulnerable = 0;
 
 	protected void generateInitialStats() {
 		strength = ThreadLocalRandom.current().nextInt(MIN_STRENGTH_RANGE, MAX_STRENGTH_RANGE + 1); // Need to add 1 for chance to return MAX_STRENGTH_RANGE
@@ -49,6 +50,16 @@ abstract class GameCharacter {
 			}
 		}
 	} */
+
+	public void timerTickDown() {
+		if (turnsInvulnerable > 0) {
+			turnsInvulnerable--;
+		}
+	}
+
+	public boolean isInvulnerable() {
+		return turnsInvulnerable > 0;
+	}
 
 	public abstract String getName(boolean putThe);
 

@@ -8,6 +8,7 @@ public class HealingPotion extends Potion {
 
     @Override
     public int drink(PlayerCharacter player) {
+        player.setAmountOfHealingPotions(player.getAmountOfHealingPotions() - 1);
         return player.doMaxHeal();
     }
 }
