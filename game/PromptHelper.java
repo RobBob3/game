@@ -34,12 +34,43 @@ public class PromptHelper {
     public static void printDivider() {
         System.out.println("================================");
     }
+
     public static void promptForEnter() {
         System.out.println("Press enter to continue.");
         try {
             reader.readLine();
         } catch (IOException ignored) {
         }
+    }
+
+    public static void pause(int timePaused) {
+        try {
+            Thread.sleep(timePaused);
+        }
+        catch(InterruptedException ignored) {
+        }
+    }
+
+    public static int promptForChoice(int numberOfChoices, String questionAsked) {
+        String userInput = null;
+        do {
+            try {
+                System.out.println(questionAsked);
+                userInput = reader.readLine();
+                int numberEntered = Integer.parseInt(userInput);
+                if (numberEntered < numberOfChoices && numberEntered >= 0) {
+                    return numberEntered;
+                } else {
+                    System.out.println("That is not valid.");
+                }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("That is not valid.");
+            }
+            catch (IOException e) {
+            }
+        }
+        while (true);
     }
 }
 
