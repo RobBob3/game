@@ -1,12 +1,12 @@
 package game;
 
-public class HealingPotion extends Potion {
+public class HealingPotion {
     public static int cost() {
         return 10;
     }
 
-    @Override
-    public int drink(PlayerCharacter player) {
+    public static int drink(PlayerCharacter player) {
+        player.setAmountOfHealingPotions(player.getAmountOfHealingPotions() - 1);
         return player.doMaxHeal();
     }
 }
