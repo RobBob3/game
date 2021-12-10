@@ -60,6 +60,18 @@ public class PlayerCharacter extends GameCharacter {
         }
         return levelAfterLevelUp - levelBeforeLevelUp;
     }
+    public int addInvulnerabilityTurns(int invulnerabilityTurnsAdded) {
+        setTurnsInvulnerable(getTurnsInvulnerable() + invulnerabilityTurnsAdded);
+        return turnsInvulnerable;
+    }
+    public boolean isInvulnerable() {
+        return turnsInvulnerable > 0;
+    }
+    public void countDownInvulnerability() {
+        if (isInvulnerable()) {
+            setTurnsInvulnerable(getTurnsInvulnerable() - 1);
+        }
+    }
     public int getExperience() {
         return experience;
     }
@@ -87,7 +99,7 @@ public class PlayerCharacter extends GameCharacter {
     public int getTurnsInvulnerable() {
         return turnsInvulnerable;
     }
-    public void setTurnsInvulnerable() {
+    public void setTurnsInvulnerable(int turnsInvulnerable) {
         this.turnsInvulnerable = turnsInvulnerable;
     }
 }

@@ -58,7 +58,7 @@ class CombatRunner {
         if (playerChar.getAmountOfHealingPotions() >= 1) {
             answeredYes = PromptHelper.askYesOrNo("Do you want to drink a healing potion? Y/N");
             if (answeredYes) {
-                new HealingPotion().drink(playerChar);
+                amountHealed = HealingPotion.drink(playerChar);
                 playerHealed = true;
                 System.out.println("You healed for " + amountHealed + " hitpoints.");
             }
@@ -75,7 +75,7 @@ class CombatRunner {
         answeredYes = PromptHelper.askYesOrNo("Do you want to drink an invulnerability potion? Y/N");
         if (answeredYes) {
             drankPotion = true;
-            new InvulnerabilityPotion().drink(playerChar);
+            InvulnerabilityPotion.drink(playerChar);
         }
         PromptHelper.printDivider();
         PromptHelper.pause(500);
